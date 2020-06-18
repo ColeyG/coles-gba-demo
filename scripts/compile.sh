@@ -5,7 +5,11 @@
 # You can also pass -r after to instantly run the program via retroarch so long as a core is passed 
 #
 
-gba_core=/home/cole/.config/retroarch/cores/vbam_libretro.so
+. config/example-config.config
+
+if [ -f config/config.config ]; then
+  . config/config.config
+fi
 
 run=0
 
