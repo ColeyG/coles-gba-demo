@@ -7,17 +7,11 @@ void initialize(volatile unsigned short vram[])
   // place(vram, rand() % 240, rand() % 160, rand());
 }
 
-int x = 0;
 // Called consistently
 void update(volatile unsigned short vram[])
 {
   // refresh();
-  line(vram, 20, x, 60, 40, rand());
-  x++;
-  if (x == 241)
-  {
-    x = 0;
-  }
+  line(vram, rand() % 240, rand() % 160, rand() % 240, rand() % 160, rand());
 }
 
 int main(void)
