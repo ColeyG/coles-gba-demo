@@ -1,17 +1,20 @@
 #include <stdlib.h>
 #include "drawing.h"
 
+int width = 240;
+int height = 160;
+
 // Called once on the start of the application
 void initialize(volatile unsigned short vram[])
 {
-  // place(vram, rand() % 240, rand() % 160, rand());
+  // place(vram, rand() % width, rand() % height, rand());
 }
 
 // Called consistently
 void update(volatile unsigned short vram[])
 {
   // refresh();
-  line(vram, rand() % 240, rand() % 160, rand() % 240, rand() % 160, rand());
+  line(vram, rand() % width, rand() % height, rand() % width, rand() % height, rand());
 }
 
 int main(void)
