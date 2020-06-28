@@ -108,4 +108,12 @@ void line(volatile unsigned short vram[], int x1, int y1, int x2, int y2, int co
   }
 }
 
+void rect(volatile unsigned short vram[], int x, int y, int width, int height, int color)
+{
+  line(vram, x, y, x + width, y, color);
+  line(vram, x + width, y, x + width, y + height, color);
+  line(vram, x, y, x, y + height, color);
+  line(vram, x, y + height, x + width, y + height, color);
+}
+
 #endif

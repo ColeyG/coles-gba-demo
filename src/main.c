@@ -4,6 +4,8 @@
 int width = 240;
 int height = 160;
 
+int x = 0;
+
 // Called once on the start of the application
 void initialize(volatile unsigned short vram[])
 {
@@ -13,7 +15,10 @@ void initialize(volatile unsigned short vram[])
 // Called consistently
 void update(volatile unsigned short vram[])
 {
-  line(vram, rand() % width, rand() % height, rand() % width, rand() % height, rand());
+  // line(vram, 120, 80, rand() % width, rand() % height, rand());
+  rect(vram, x, 5, 5, 5, 0x7C00);
+  x++;
+  // TODO: This won't work without actual vblank Sync. Do that next
 }
 
 int main(void)
