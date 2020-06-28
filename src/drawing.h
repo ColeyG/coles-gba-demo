@@ -3,9 +3,44 @@
 
 #include "helpers.h"
 
+struct dontDraw
+{
+  int x;
+  int y;
+  int width;
+  int height;
+}
+
+dontDraw[2] = {
+    {50, 50, 50, 50},
+    {145, 50, 50, 50}};
+
+int isDontDraw(int x, int y, volatile unsigned short vram[])
+{
+  int i;
+
+  for (i = 0; i < sizeof(dontDraw) / sizeof(struct dontDraw); i++)
+  {
+    // rect(vram, dontDraw[i].x, dontDraw[i].y, dontDraw[i].width, dontDraw[i].height, rand());
+    if (
+        dontDraw[i].x < x &&
+        dontDraw[i].x + dontDraw[i].width > x &&
+        dontDraw[i].y < y &&
+        dontDraw[i].y + dontDraw[i].height > y)
+    {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
 void place(volatile unsigned short vram[], int x, int y, int color)
 {
-  vram[y * 240 + x] = color;
+  if (!isDontDraw(x, y, vram)) // TODO: Remove vram
+  {
+    vram[y * 240 + x] = color;
+  }
 }
 
 void clearRoutine(volatile unsigned short vram[])
