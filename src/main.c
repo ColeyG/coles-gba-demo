@@ -7,13 +7,12 @@ int height = 160;
 // Called once on the start of the application
 void initialize(volatile unsigned short vram[])
 {
-  // place(vram, rand() % width, rand() % height, rand());
+  // Initializer Function called on game start
 }
 
 // Called consistently
 void update(volatile unsigned short vram[])
 {
-  // refresh();
   line(vram, rand() % width, rand() % height, rand() % width, rand() % height, rand());
 }
 
@@ -33,6 +32,7 @@ int main(void)
 
   while (1)
   {
+    clearRoutine(vram);
     update(vram);
   }
 

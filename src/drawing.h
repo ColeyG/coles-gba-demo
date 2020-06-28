@@ -8,6 +8,20 @@ void place(volatile unsigned short vram[], int x, int y, int color)
   vram[y * 240 + x] = color;
 }
 
+void clearRoutine(volatile unsigned short vram[])
+{
+  int x = 0;
+  int y = 0;
+
+  for (y = 0; 160 > y; y++)
+  {
+    for (x = 0; 240 > x; x++)
+    {
+      place(vram, x, y, 0x0000);
+    }
+  }
+}
+
 // This uses [Bresenham's Line Algo](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm) for drawing
 void line(volatile unsigned short vram[], int x1, int y1, int x2, int y2, int color)
 {
