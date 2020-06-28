@@ -1,6 +1,12 @@
 #include <stdlib.h>
 #include "drawing.h"
 
+// VBlank Register
+#define vcountAddr 0x04000000
+#define vcount (*((volatile uint32 *)(vcountAddr + 0x0006)))
+
+typedef unsigned int uint32;
+
 int width = 240;
 int height = 160;
 
@@ -37,8 +43,11 @@ int main(void)
 
   while (1)
   {
-    clearRoutine(vram);
-    update(vram);
+    if (vcount >= 160)
+    {
+      clearRoutine(vram);
+      update(vram);
+    }
   }
 
   return 0;
