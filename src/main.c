@@ -1,16 +1,8 @@
 #include <stdlib.h>
 #include "drawing.h"
 
-// VBlank Register
-#define vcountAddr 0x04000000
-#define vcount (*((volatile uint32 *)(vcountAddr + 0x0006)))
-
-typedef unsigned int uint32;
-
 int width = 240;
 int height = 160;
-
-int x = 0;
 
 // Called once on the start of the application
 void initialize(volatile unsigned short vram[])
@@ -21,10 +13,7 @@ void initialize(volatile unsigned short vram[])
 // Called consistently
 void update(volatile unsigned short vram[])
 {
-  // line(vram, 120, 80, rand() % width, rand() % height, rand());
-  rect(vram, x, 5, 5, 5, 0x7C00);
-  x++;
-  // TODO: This won't work without actual vblank Sync. Do that next
+  line(vram, 120, 80, rand() % width, rand() % height, rand());
 }
 
 int main(void)
@@ -43,11 +32,7 @@ int main(void)
 
   while (1)
   {
-    if (vcount >= 160)
-    {
-      clearRoutine(vram);
-      update(vram);
-    }
+    update(vram);
   }
 
   return 0;
