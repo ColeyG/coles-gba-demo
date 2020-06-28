@@ -15,13 +15,12 @@ dontDraw[2] = {
     {50, 50, 50, 50},
     {145, 50, 50, 50}};
 
-int isDontDraw(int x, int y, volatile unsigned short vram[])
+int isDontDraw(int x, int y)
 {
   int i;
 
   for (i = 0; i < sizeof(dontDraw) / sizeof(struct dontDraw); i++)
   {
-    // rect(vram, dontDraw[i].x, dontDraw[i].y, dontDraw[i].width, dontDraw[i].height, rand());
     if (
         dontDraw[i].x < x &&
         dontDraw[i].x + dontDraw[i].width > x &&
@@ -37,7 +36,7 @@ int isDontDraw(int x, int y, volatile unsigned short vram[])
 
 void place(volatile unsigned short vram[], int x, int y, int color)
 {
-  if (!isDontDraw(x, y, vram)) // TODO: Remove vram
+  if (!isDontDraw(x, y))
   {
     vram[y * 240 + x] = color;
   }

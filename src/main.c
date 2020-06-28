@@ -18,12 +18,10 @@ void update(volatile unsigned short vram[])
 
 int main(void)
 {
-  // Write into the I/O registers, setting video display parameters.
   volatile unsigned char *ioram = (unsigned char *)0x04000000;
-  ioram[0] = 0x03; // Assign our "game to video mode 3"
-  ioram[1] = 0x04; // Enable BG2 (BG0 = 1, BG1 = 2, BG2 = 4, ...)
+  ioram[0] = 0x03;
+  ioram[1] = 0x04;
 
-  // Write pixel colours into VRAM
   volatile unsigned short *vram = (unsigned short *)0x06000000;
 
   srand(0);
