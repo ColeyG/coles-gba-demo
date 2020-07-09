@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "drawing.h"
+#include "drawRoutines.h"
 
 int width = 240;
 int height = 160;
@@ -8,12 +9,13 @@ int height = 160;
 void initialize(volatile unsigned short vram[])
 {
   // Initializer Function called on game start
+  drawRoutine(vram, 0);
 }
 
 // Called consistently
 void update(volatile unsigned short vram[])
 {
-  line(vram, 120, 80, rand() % width, rand() % height, rand());
+  // line(vram, 120, 80, rand() % width, rand() % height, rand());
 }
 
 int main(void)

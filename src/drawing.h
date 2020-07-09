@@ -11,9 +11,7 @@ struct dontDraw
   int height;
 }
 
-dontDraw[2] = {
-    {50, 50, 50, 50},
-    {145, 50, 50, 50}};
+dontDraw[0] = {};
 
 int isDontDraw(int x, int y)
 {
