@@ -9,27 +9,41 @@ struct dontDraw
   int y;
   int width;
   int height;
-}
+};
 
-dontDraw[0] = {};
+int dontDrawSize = 0;
+// NOTE: The don't draw array limit won't cross the array's max size
+struct dontDraw dontDraw[1] = {};
 
 int isDontDraw(int x, int y)
 {
-  int i;
-
-  for (i = 0; i < sizeof(dontDraw) / sizeof(struct dontDraw); i++)
+  if (dontDrawSize > 0)
   {
-    if (
-        dontDraw[i].x < x &&
-        dontDraw[i].x + dontDraw[i].width > x &&
-        dontDraw[i].y < y &&
-        dontDraw[i].y + dontDraw[i].height > y)
+
+    int i;
+    for (i = 0; i < dontDrawSize; i++)
     {
-      return 1;
+      if (
+          dontDraw[i].x <= x &&
+          dontDraw[i].x + dontDraw[i].width > x &&
+          dontDraw[i].y <= y &&
+          dontDraw[i].y + dontDraw[i].height > y)
+      {
+        return 1;
+      }
     }
   }
 
   return 0;
+}
+
+void addDontDraw(int x, int y, int width, int height)
+{
+  dontDraw[dontDrawSize].x = x;
+  dontDraw[dontDrawSize].y = y;
+  dontDraw[dontDrawSize].width = width;
+  dontDraw[dontDrawSize].height = height;
+  dontDrawSize++;
 }
 
 void place(volatile unsigned short vram[], int x, int y, int color)
@@ -40,16 +54,24 @@ void place(volatile unsigned short vram[], int x, int y, int color)
   }
 }
 
-void clearRoutine(volatile unsigned short vram[])
+void clearRoutine(volatile unsigned short vram[], int color)
 {
   int x = 0;
   int y = 0;
 
-  for (y = 0; 160 > y; y++)
+  for (y = 0; 160 > y; y = y + 2)
   {
     for (x = 0; 240 > x; x++)
     {
-      place(vram, x, y, 0x0000);
+      place(vram, x, y, color);
+    }
+  }
+
+  for (y = 161; 0 < y; y = y - 2)
+  {
+    for (x = 0; 240 > x; x++)
+    {
+      place(vram, x, y, color);
     }
   }
 }

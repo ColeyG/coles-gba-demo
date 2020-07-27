@@ -2,20 +2,30 @@
 #include "drawing.h"
 #include "drawRoutines.h"
 
+#define MEM_IO 0x04000000
+#define REG_DISPLAY (*((volatile uint32 *)(MEM_IO)))
+#define REG_DISPLAY_VCOUNT (*((volatile uint32 *)(MEM_IO + 0x0006)))
+
+typedef unsigned int uint32;
+
+// Gross Globals Area
 int width = 240;
 int height = 160;
+int initialized = 0;
 
 // Called once on the start of the application
 void initialize(volatile unsigned short vram[])
 {
   // Initializer Function called on game start
+  clearRoutine(vram, 0x739c);
   drawRoutine(vram, 0, 10, 10);
+  addDontDraw(10, 10, 77, 30);
 }
 
 // Called consistently
 void update(volatile unsigned short vram[])
 {
-  line(vram, rand() % width, rand() % height, rand() % width, rand() % height, rand());
+  // line(vram, rand() % width, rand() % height, rand() % width, rand() % height, rand());
 }
 
 int main(void)
@@ -28,11 +38,20 @@ int main(void)
 
   srand(0);
 
-  initialize(vram);
-
   while (1)
   {
-    update(vram);
+    while (REG_DISPLAY_VCOUNT >= 160)
+      ;
+    while (REG_DISPLAY_VCOUNT < 160)
+    {
+      if (initialized == 0)
+      {
+        initialize(vram);
+        initialized = 1;
+      }
+
+      update(vram);
+    }
   }
 
   return 0;
