@@ -18,7 +18,7 @@ void initialize(volatile unsigned short vram[])
 {
   // Initializer Function called on game start
   clearRoutine(vram, 0x739c);
-  drawRoutine(vram, 0, 10, 10);
+  drawRoutine(vram, coleRoutine, sizeof(coleRoutine) / sizeof(coleRoutine[0]), coleMap, 10, 10);
   addDontDraw(10, 10, 77, 30);
 }
 
