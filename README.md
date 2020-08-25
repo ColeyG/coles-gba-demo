@@ -8,4 +8,4 @@ This is my first ever Game Boy Demo! I am pretty terrible at C so don't take thi
 
 _Caveats_
 
-Since this is a game boy advance _demo_, it doesn't actually pay attention to timing or drawing complexity since it isn't played. So I've cut corners when it comes to drawing algos and standards practices for the console. Don't use what you see here unless you know what you are doing for the GBA.
+Since this is a game boy advance _demo_, it doesn't actually pay attention to timing or drawing complexity since it isn't played. So I've cut corners when it comes to drawing algos and standards practices for the console. Don't use what you see here unless you know what you are doing for the GBA. (It evens commits one of the biggest crimes... Global variables _`*GASP*`_)
