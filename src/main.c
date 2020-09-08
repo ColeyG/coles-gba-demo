@@ -18,8 +18,8 @@
 #define KEY_UP 0x0070
 #define KEY_DOWN 0x0080
 
-#define KEY_R 0x0100
-#define KEY_L 0x0100
+// #define KEY_R 0x0100
+// #define KEY_L 0x0100
 
 #define KEY_ANY 0x03FF
 
@@ -29,6 +29,8 @@ typedef unsigned int uint32;
 int width = 240;
 int height = 160;
 int initialized = 0;
+int started = 0;
+int time = 0;
 
 // Called once on the start of the application
 void initialize(volatile unsigned short vram[])
@@ -43,8 +45,15 @@ void initialize(volatile unsigned short vram[])
 // Called consistently
 void update(volatile unsigned short vram[], int keyStates)
 {
+  time++;
   // line(vram, rand() % width, rand() % height, rand() % width, rand() % height, rand());
-  if (keyStates & KEY_UP)
+  if (keyStates && KEY_A && KEY_B)
+  {
+    started = 1;
+    srand(time);
+  }
+
+  if (started == 1)
   {
     line(vram, rand() % width, rand() % height, rand() % width, rand() % height, rand());
   }
