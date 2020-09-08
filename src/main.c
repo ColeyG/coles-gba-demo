@@ -46,7 +46,6 @@ void initialize(volatile unsigned short vram[])
 void update(volatile unsigned short vram[], int keyStates)
 {
   time++;
-  // line(vram, rand() % width, rand() % height, rand() % width, rand() % height, rand());
   if (keyStates & KEY_A)
   {
     if (keyStates & KEY_B)
