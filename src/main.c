@@ -47,10 +47,13 @@ void update(volatile unsigned short vram[], int keyStates)
 {
   time++;
   // line(vram, rand() % width, rand() % height, rand() % width, rand() % height, rand());
-  if (keyStates && KEY_A && KEY_B)
+  if (keyStates & KEY_A)
   {
-    started = 1;
-    srand(time);
+    if (keyStates & KEY_B)
+    {
+      started = 1;
+      srand(time);
+    }
   }
 
   if (started == 1)
